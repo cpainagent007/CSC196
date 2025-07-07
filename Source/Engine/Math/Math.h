@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 
 namespace Cpain {
 	namespace CMath {
@@ -12,7 +13,7 @@ namespace Cpain {
 
 		using std::min;
 		using std::max;
-		//using std::clamp;
+		using std::clamp;
 
 	}
 }
