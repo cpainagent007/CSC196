@@ -1,7 +1,6 @@
 #include "Renderer.h"
 
-namespace Cpain
-{
+namespace Cpain {
     bool Renderer::initialize() {
         if (!SDL_Init(SDL_INIT_VIDEO)) {
             std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
