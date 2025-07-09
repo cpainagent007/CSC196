@@ -4,6 +4,8 @@
 #include "Core/Random.h"
 #include "Core/Time.h"
 
+#include "Input/InputSystem.h"
+
 #include "Renderer/Renderer.h"
 
 #include <SDL3/SDL.h>
@@ -14,11 +16,13 @@
 int main(int argc, char* argv[]) {
 
     Cpain::CTime::Time time;
+
     Cpain::Renderer renderer;
 	renderer.initialize();
 	renderer.createWindow("Cpain Engine", 1280, 1024);
 
-    
+    Cpain::CInput::InputSystem input;
+	input.initialize();
 
     SDL_Event e;
     bool quit = false;
@@ -35,6 +39,19 @@ int main(int argc, char* argv[]) {
                 quit = true;
             }
         }
+
+		input.update();
+        if (input.getKeyPressed(SDL_SCANCODE_A)) {
+			std::cout << "A key is pressed!\n" << std::endl;
+        }
+
+        if (input.getMouseButtonDown(0)) {
+			std::cout << "Left mouse button is pressed!" << std::endl;
+        }
+
+		Cpain::CVec2::vec2 mouse = input.getMousePosition();
+		std::cout << mouse.x << " " << mouse.y << std::endl;
+
 		renderer.setColor(0, 0, 0);
         renderer.clear();
 
@@ -42,7 +59,7 @@ int main(int argc, char* argv[]) {
 		float length = speed.length();
 
         for (Cpain::CVec2::vec2& star : stars) {
-            star += (speed * time.getDeltaTime());
+            star += speed * time.getDeltaTime();
             if (star[1] > 1024) star[1] = 0;
 			renderer.setColor(255, 255, 255);
             renderer.drawPoint(star.x, star.y);
