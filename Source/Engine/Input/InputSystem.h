@@ -9,6 +9,13 @@
 namespace Cpain {
 	namespace CInput {
 		class InputSystem {
+		public:
+
+			enum class MouseButton : uint8_t {
+				Left,
+				Middle,
+				Right
+			};
 
 		public:
 
@@ -59,16 +66,20 @@ namespace Cpain {
 			const CVec2::vec2& getPrevMousePosition() const { return m_prevMousePosition; }
 
 
-			bool getMouseButtonDown(uint8_t button) { assert(button < 3); return m_mouseButtonState[button]; }
+			bool getMouseButtonDown(MouseButton button) { return m_mouseButtonState[(uint8_t)button]; }
 
 
-			bool getPrevMouseButtonDown(uint8_t button) { assert(button < 3); return m_prevMouseButtonState[button]; }
+			bool getPrevMouseButtonDown(MouseButton button) { return m_prevMouseButtonState[(uint8_t)button]; }
 
 
-			bool getMouseButtonPressed(uint8_t button) { assert(button < 3); return !m_prevMouseButtonState[button] && m_mouseButtonState[button]; }
+			bool getMouseButtonPressed(MouseButton button) {
+				return !m_prevMouseButtonState[(uint8_t)button] && m_mouseButtonState[(uint8_t)button];
+			}
 
 
-			bool getMouseButtonReleased(uint8_t button) { assert(button < 3); return m_prevMouseButtonState[button] && !m_mouseButtonState[button]; }
+			bool getMouseButtonReleased(MouseButton button) {
+				return m_prevMouseButtonState[(uint8_t)button] && !m_mouseButtonState[(uint8_t)button];
+			}
 
 		private:
 
