@@ -58,6 +58,10 @@ int main(int argc, char* argv[]) {
         stars.push_back(Cpain::CVec2::vec2(Cpain::CRandom::getRandomFloat() * 1280, Cpain::CRandom::getRandomFloat() * 1024));
     }
 
+    std::vector<std::vector<Cpain::CVec2::vec2>> lines;
+    bool isDrawing = false;
+
+
 	// Main Loop
     while (!quit) {
         time.tick();
@@ -74,32 +78,38 @@ int main(int argc, char* argv[]) {
 
         // Update Input
 
-        if(input.getKeyDown(SDL_SCANCODE_Q) && !input.getPrevKeyDown(SDL_SCANCODE_Q)) {
-			audio->playSound(sounds[0], 0, false, nullptr);
-		}
-
-        if (input.getKeyDown(SDL_SCANCODE_W) && !input.getPrevKeyDown(SDL_SCANCODE_W)) {
-            audio->playSound(sounds[1], 0, false, nullptr);
-        }
-
-        if (input.getKeyDown(SDL_SCANCODE_E) && !input.getPrevKeyDown(SDL_SCANCODE_E)) {
-            audio->playSound(sounds[2], 0, false, nullptr);
-        }
+        
 
         // Draw
 		renderer.setColor(0, 0, 0);
         renderer.clear();
 
+        if (input.getMouseButtonDown(Cpain::CInput::InputSystem::MouseButton::Left)) {
+            Cpain::CVec2::vec2 position = input.getMousePosition();
 
-        Cpain::CVec2::vec2 speed(0.0f, 0.005f);
-		float length = speed.length();
+            if (!isDrawing) {
+                // Start a new stroke
+                lines.push_back({});
+                isDrawing = true;
+            }
 
-        for (Cpain::CVec2::vec2& star : stars) {
-            star += speed;
-            if (star[1] > 1024) star[1] = 0;
-			renderer.setColor(255, 255, 255);
-            renderer.drawPoint(star.x, star.y);
+            std::vector<Cpain::CVec2::vec2>& currentLine = lines.back();
+
+            if (currentLine.empty() || (position - currentLine.back()).length() > 10) {
+                currentLine.push_back(position);
+            }
         }
+        else {
+            isDrawing = false;
+        }
+
+        for (const auto& line : lines) {
+            for (int i = 0; i < (int)line.size() - 1; i++) {
+                renderer.setColor(255, 255, 255);
+                renderer.drawLine(line[i].x, line[i].y, line[i + 1].x, line[i + 1].y);
+            }
+        }
+
 
         // Display
 		renderer.present();
