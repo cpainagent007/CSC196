@@ -38,5 +38,7 @@ namespace Cpain {
 
 		using std::tan;
 		using std::tanf;
+		using std::atan2;
+		using std::atan2f;
 	}
 }

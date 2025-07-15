@@ -2,27 +2,28 @@
 #include "Math.h"
 
 namespace Cpain {
-	namespace CVec2 {
+	namespace CVec3 {
 		template<typename T>
 		struct Vector3 {
 
-			T x, y;
+			union {
+				struct { T x, y, z; };
+				struct { T r, g, b; };
+			};
 
 			Vector3() = default;
-			Vector3(T x, T y) : x{ x }, y{ y }, z{ z } {}
+			Vector3(T x, T y, T z) : x{ x }, y{ y }, z{ z } {}
 
-			Vector3 operator+(const Vector3& value) const { return Vector3{ x + value.x, y + value.y, z + value.z };
-			}
+			Vector3 operator+(const Vector3& value) const { return Vector3{ x + value.x, y + value.y, z + value.z }; }
 			Vector3 operator-(const Vector3& value) const { return Vector3{ x - value.x, y - value.y, z - value.z }; }
 
-			Vector3 operator+(float scalar) const { return Vector3{ x + scalar, y + scalar, z + scalar };
-			}
+			Vector3 operator+(float scalar) const { return Vector3{ x + scalar, y + scalar, z + scalar }; }
 			Vector3 operator-(float scalar) const { return Vector3{ x - scalar, y - scalar, z - scalar }; }
 			Vector3 operator*(float scalar) const { return Vector3{ x * scalar, y * scalar, z * scalar }; }
 			Vector3 operator/(float scalar) const { return Vector3{ x / scalar, y / scalar, z / scalar }; }
 
-			Vector3& operator+=(const Vector2& value) { x += value.x; y += value.y; z += value.z; return *this; }
-			Vector3& operator-=(const Vector2& value) { x -= value.x; y -= value.y; z += value.z; return *this; }
+			Vector3& operator+=(const Vector3& value) { x += value.x; y += value.y; z += value.z; return *this; }
+			Vector3& operator-=(const Vector3& value) { x -= value.x; y -= value.y; z += value.z; return *this; }
 
 			Vector3& operator+=(float scalar) { x += scalar; y += scalar; z += scalar; return *this; }
 			Vector3& operator-=(float scalar) { x -= scalar; y -= scalar; z -= scalar; return *this; }
@@ -42,7 +43,7 @@ namespace Cpain {
 			/// Calculates the length by taking the square root of the value returned by lengthCbd().
 			/// </summary>
 			/// <returns>The length as a floating-point value.</returns>
-			float length() const { return Cpain::CMath::sqrtf(lengthCbd()); }
+			float length() const { return Cpain::CMath::sqrtf(lengthSqrd()); }
 		};
 
 		using ivec3 = Vector3<int>;

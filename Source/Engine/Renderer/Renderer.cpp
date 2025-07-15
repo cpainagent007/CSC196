@@ -57,6 +57,17 @@ namespace Cpain {
     }
 
     /// <summary>
+    /// Sets the current drawing color for the renderer.
+    /// </summary>
+    /// <param name="r">The red component of the color (0.0 to 255.0).</param>
+    /// <param name="g">The green component of the color (0.0 to 255.0).</param>
+    /// <param name="b">The blue component of the color (0.0 to 255.0).</param>
+    /// <param name="a">The alpha (transparency) component of the color (0.0 to 255.0).</param>
+    void Renderer::setColor(float r, float g, float b, float a) {
+        SDL_SetRenderDrawColorFloat(m_renderer, r, g, b, a);
+    }
+
+    /// <summary>
     /// Draws a line between two points using the renderer.
     /// </summary>
     /// <param name="x1">The x-coordinate of the starting point.</param>

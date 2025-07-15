@@ -10,7 +10,7 @@ namespace Cpain {
 		/// </summary>
 		/// <param name="result">The FMOD_RESULT value returned by an FMOD function.</param>
 		/// <returns>True if the result indicates success (FMOD_OK), false otherwise.</returns>
-		bool checkFmodResult(FMOD_RESULT result) {
+		bool AudioSystem::checkFmodResult(FMOD_RESULT result) {
 			if (result != FMOD_OK) {
 				std::cerr << FMOD_ErrorString(result) << std::endl;
 				return false;
@@ -67,6 +67,11 @@ namespace Cpain {
 			return true;
 		}
 
+		/// <summary>
+		/// Plays a sound by its name using the audio system.
+		/// </summary>
+		/// <param name="name">The name of the sound to play.</param>
+		/// <returns>True if the sound was successfully played; false if the sound does not exist or playback failed.</returns>
 		bool AudioSystem::playSound(const std::string& name) {
 			std::string key = name;
 			key = CString::toLower(key);

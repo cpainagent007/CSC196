@@ -6,7 +6,10 @@ namespace Cpain {
 		template<typename T>
 		struct Vector2 {
 
-			T x, y;
+			union {
+				struct { T x, y; };
+				struct { T u, v; };
+			};
 
 			Vector2() = default;
 			Vector2(T x, T y) : x{ x }, y{ y } {}
@@ -45,6 +48,32 @@ namespace Cpain {
 			/// </summary>
 			/// <returns>The length as a floating-point value.</returns>
 			float length() const { return Cpain::CMath::sqrtf(lengthSqrd()); }
+
+			/// <summary>
+			/// Returns a normalized (unit length) version of the vector.
+			/// </summary>
+			/// <returns>A Vector2 representing the original vector scaled to have a length of 1.</returns>
+			Vector2 normalized() const { return *this / length(); }
+
+			/// <summary>
+			/// Returns the angle in radians between the positive x-axis and the point (x, y).
+			/// </summary>
+			/// <returns>The angle in radians, computed using atan2f(y, x).</returns>
+			float angle() const { return Cpain::CMath::atan2f(y, x); }
+
+			/// <summary>
+			/// Returns a new Vector2 that is the result of rotating this vector by a specified angle in radians.
+			/// </summary>
+			/// <param name="radians">The angle to rotate the vector, in radians.</param>
+			/// <returns>A new Vector2 representing the rotated vector.</returns>
+			Vector2 rotate(float radians) const { 
+				Vector2 v;
+
+				v.x = x * Cpain::CMath::cosf(radians) - y * Cpain::CMath::sinf(radians);
+				v.y = x * Cpain::CMath::sinf(radians) + y * Cpain::CMath::cosf(radians);
+
+				return v;
+			}
 
 		};
 

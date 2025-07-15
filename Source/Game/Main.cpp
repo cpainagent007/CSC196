@@ -1,5 +1,6 @@
 #include "Math/Math.h"
 #include "Math/Vector2.h"
+#include "Math/Vector3.h"
 
 #include "Core/Random.h"
 #include "Core/Time.h"
@@ -7,6 +8,7 @@
 #include "Input/InputSystem.h"
 
 #include "Renderer/Renderer.h"
+#include "Renderer/Model.h"
 
 #include "Audio/AudioSystem.h"
 
@@ -30,11 +32,6 @@ int main(int argc, char* argv[]) {
 
 	Cpain::CAudio::AudioSystem audio;
 
-	audio.addSound("bass.wav", "bass");
-	audio.addSound("snare.wav", "snare");
-	audio.addSound("clap.wav", "clap");
-	audio.addSound("open-hat.wav", "open-hat");
-
 	// Additional Initialization
     SDL_Event e;
     bool quit = false;
@@ -43,6 +40,15 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i < 100; i++) {
         stars.push_back(Cpain::CVec2::vec2(Cpain::CRandom::getRandomFloat() * 1280, Cpain::CRandom::getRandomFloat() * 1024));
     }
+
+    std::vector<Cpain::CVec2::vec2> points{
+        {-5, -5},
+        {5, -5},
+        {5, 5},
+        {-5, 5}
+    };
+
+    Cpain::Model model(points, {1, 0, 0});
 
 	// Main Loop
     while (!quit) {
@@ -55,19 +61,35 @@ int main(int argc, char* argv[]) {
 		// Update Systems
         
 		input.update();
-        audio.update();
 
         // Update Input
 
+        if (input.getKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+
         // Draw
-		renderer.setColor(0, 0, 0);
+        Cpain::CVec3::vec3 color{ 0, 0, 0 };
+
+		renderer.setColor(color.r, color.g, color.b);
         renderer.clear();
+
+		Cpain::CVec2::vec2 speed{ 0, 100 };
+		float length = speed.length();
+
+        for (auto& star : stars) {
+			star += speed * time.getDeltaTime();
+
+			if (star[1] > 1024) star[1] = 0;
+
+			renderer.setColor(1.0f, 1.0f, 1.0f);
+			renderer.drawPoint(star.x, star.y);
+        }
+
+		model.draw(renderer, input.getMousePosition(), time.getTime(), 10.0f);
 
         // Display
 		renderer.present();
     }
 	renderer.shutdown();
-    audio.shutdown();
 
     return 0;
 }
