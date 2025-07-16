@@ -50,11 +50,30 @@ int main(int argc, char* argv[]) {
     // (Model)
 
     std::vector<Cpain::CVec2::vec2> points{
-        {5, 5},
-        {5, -5},
-        {-5, -5},
-        {-5, 5},
-        {5, 5}
+        {-1, 4},
+        {-1, 2},
+        {-1, 1},
+        {0, 2},
+        {1, 1},
+        {1, 2},
+        {1, 4},
+        {2, 1},
+        {2, -2},
+        {4, 0},
+        {1, 0},
+        {0, -2},
+        {-1, 0},
+        {-4, 0},
+        {-2, -2},
+        {0, -2},
+        {-2, -4},
+        {-2, -2},
+        {2, -2},
+        {2, -4},
+        {0, -2},
+        {-2, -2},
+        {-2, 1},
+        {-1, 4}
     };
 
     Cpain::Model* model = new Cpain::Model(points, {0, 1, 0});
@@ -66,7 +85,7 @@ int main(int argc, char* argv[]) {
     // (Actor)
 
 	std::vector<Cpain::CActor::Actor> actors;
-    for(int i = 0; i < 100; i++) {
+    for(int i = 0; i < 50; i++) {
         Cpain::Transform transform
         { Cpain::CVec2::vec2(Cpain::CRandom::getRandomFloat() * 1280, Cpain::CRandom::getRandomFloat() * 1020), 
             Cpain::CRandom::getRandomFloat() * 360, 
