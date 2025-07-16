@@ -3,6 +3,7 @@
 
 namespace Cpain {
 
+	
 	void Model::draw(class Renderer& renderer, const Cpain::CVec2::vec2& position, float rotation, float scale) {
 		if (m_points.empty()) return;
 
@@ -14,6 +15,11 @@ namespace Cpain {
 
 			renderer.drawLine(p1.x, p1.y, p2.x, p2.y);
 		}
+	}
+
+
+	void Model::draw(class Renderer& renderer, const Transform& transform) {
+		draw(renderer, transform.position, transform.rotation, transform.scale);
 	}
 
 }

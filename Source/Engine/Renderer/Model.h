@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Math/Vector2.h"
 #include "../Math/Vector3.h"
+#include "../Math/Transform.h"
 
 #include <vector>
 
@@ -15,6 +15,7 @@ namespace Cpain {
 		}
 
 		void draw(class Renderer& renderer, const Cpain::CVec2::vec2& position, float rotation, float scale);
+		void draw(class Renderer& renderer, const Transform& transform);
 
 	private:
 		std::vector<Cpain::CVec2::vec2> m_points;
