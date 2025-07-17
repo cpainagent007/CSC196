@@ -3,13 +3,15 @@
 #include "../Math/Transform.h"
 #include "../Renderer/Model.h"
 
+#include <memory>
+
 namespace Cpain {
 	namespace CActor {
 		class Actor {
 
 		public:
 			Actor() = default;
-			Actor(const Transform& transform, class Model* model)
+			Actor(const Transform& transform, std::shared_ptr<class Model> model)
 				: m_transform{ transform }, m_model { model } {}
 
 			virtual void update(float deltaTime);
@@ -19,7 +21,7 @@ namespace Cpain {
 
 		protected:
 			Transform m_transform;
-			Model* m_model;
+			std::shared_ptr<Model> m_model;
 
 		};
 	}
