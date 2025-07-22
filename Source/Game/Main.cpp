@@ -39,20 +39,11 @@ int main(int argc, char* argv[]) {
     // Add Sounds
 
 	Cpain::getEngine().getAudio().addSound("bass.wav", "bass");
-	
-    // Initialize Scene
-
-	Cpain::Scene scene;
 
 	// Additional Initialization
 
     SDL_Event e;
     bool quit = false;
-
-    std::vector<Cpain::vec2> stars;
-    for (int i = 0; i < 100; i++) {
-        stars.push_back(Cpain::vec2(Cpain::getRandomFloat() * 1280, Cpain::getRandomFloat() * 1024));
-    }
 	
 	// Main Loop
     while (!quit) {
@@ -65,7 +56,7 @@ int main(int argc, char* argv[]) {
 		// Update Systems
         
 		Cpain::getEngine().update();
-        scene.update(Cpain::getEngine().getTime().getDeltaTime());
+		game->update();
 
         // Update Input
 
@@ -73,28 +64,15 @@ int main(int argc, char* argv[]) {
 
         // Draw
         Cpain::vec3 color{ 0, 0, 0 };
-
 		Cpain::getEngine().getRenderer().setColor(color.r, color.g, color.b);
         Cpain::getEngine().getRenderer().clear();
 
-		Cpain::vec2 starSpeed{ 0, 100 };
-		float length = starSpeed.length();
-
-        for (auto& star : stars) {
-            star += starSpeed * Cpain::getEngine().getTime().getDeltaTime();
-
-            if (star[1] > 1024) star[1] = 0;
-
-            Cpain::getEngine().getRenderer().setColor(1.0f, 1.0f, 1.0f);
-            Cpain::getEngine().getRenderer().drawPoint(star.x, star.y);
-        }
-
-        scene.draw(Cpain::getEngine().getRenderer());
+        game->draw();
         
         // Display
         Cpain::getEngine().getRenderer().present();
     }
-
+	game->shutdown();
 	Cpain::getEngine().shutdown();
 
     return 0;

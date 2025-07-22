@@ -10,8 +10,8 @@ namespace Cpain {
 		renderer.setColor( m_color.r, m_color.g, m_color.b );
 
 		for (int i = 0; i < m_points.size() - 1; i++) {
-			vec2 p1 = (m_points[i].rotate(rotation) * scale) + position;
-			vec2 p2 = (m_points[i + 1].rotate(rotation) * scale) + position;
+			vec2 p1 = (m_points[i].rotate(degToRad(rotation)) * scale) + position;
+			vec2 p2 = (m_points[i + 1].rotate(degToRad(rotation)) * scale) + position;
 
 			renderer.drawLine(p1.x, p1.y, p2.x, p2.y);
 		}

@@ -1,19 +1,25 @@
 #include "Player.h"
 #include "Engine.h"
 #include "Input/InputSystem.h"
+#include "Math/Math.h"
 
 void Player::update(float deltaTime) {
+
 	float shipSpeed = 200.0f;
+	float rotationSpeed = 10.0f;
 
-	Cpain::vec2 inputDirection{ 0, 0 };
+	float rotate = 0;
+	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_A)) rotate = -1;
+	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) rotate = +1;
+	m_transform.rotation += (rotate * rotationSpeed) * deltaTime;
 
-	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_S)) inputDirection.y = 1;
-	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) inputDirection.x = 1;
-	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_W)) inputDirection.y = -1;
-	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_A)) inputDirection.x = -1;
+	float thrust = 0;
+	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_W)) thrust = 1;
 
-	if (inputDirection.lengthSqrd() > 0) {
-		inputDirection = inputDirection.normalized();
-		m_transform.position += (inputDirection * shipSpeed) * deltaTime;
-	}
+	Cpain::vec2 inputDirection{ 1, 0 };
+	Cpain::vec2 force = inputDirection.rotate(Cpain::degToRad(m_transform.rotation)) * shipSpeed;
+	velocity += force * deltaTime;
+
+	Actor::update(deltaTime);
+
 }

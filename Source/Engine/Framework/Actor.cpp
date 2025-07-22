@@ -3,7 +3,7 @@
 namespace Cpain {
 		
 	void Actor::update(float deltaTime) {
-			
+		m_transform.position += velocity * deltaTime;
 	}
 
 	void Actor::draw(Renderer& renderer) {

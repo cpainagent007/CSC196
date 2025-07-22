@@ -22,6 +22,9 @@ namespace Cpain {
     /// <param name="height">The height of the window in pixels.</param>
     /// <returns>True if the window and renderer were created successfully; false otherwise.</returns>
     bool Renderer::createWindow(const std::string& name, int width, int height) {
+		m_width = width;
+		m_height = height;
+
         m_window = SDL_CreateWindow(name.c_str(), width, height, 0);
         if (m_window == nullptr) {
             std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
