@@ -1,7 +1,9 @@
 #pragma once
-#include "Framework/Game.h"
 
-class SpaceGame : public Cpain::CGame::Game {
+#include "Framework/Game.h"
+#include "Framework/Scene.h"
+
+class SpaceGame : public Cpain::Game {
 public:
 	SpaceGame() = default;
 
@@ -12,6 +14,6 @@ public:
 
 
 private:
-
+	std::unique_ptr<Cpain::Scene> m_scene;
 
 };

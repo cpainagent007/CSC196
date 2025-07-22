@@ -10,15 +10,15 @@ namespace Cpain {
 
 	public:
 		Model() = default;
-		Model(const std::vector<Cpain::CVec2::vec2>& points, const Cpain::CVec3::vec3& color = { 1, 1, 1 })
+		Model(const std::vector<vec2>& points, const vec3& color = { 1, 1, 1 })
 			: m_points{ points }, m_color{ color } {
 		}
 
-		void draw(class Renderer& renderer, const Cpain::CVec2::vec2& position, float rotation, float scale);
+		void draw(class Renderer& renderer, const vec2& position, float rotation, float scale);
 		void draw(class Renderer& renderer, const Transform& transform);
 
 	private:
-		std::vector<Cpain::CVec2::vec2> m_points;
-		Cpain::CVec3::vec3 m_color{ 1, 1, 1 };
+		std::vector<vec2> m_points;
+		vec3 m_color{ 1, 1, 1 };
 	};
 }

@@ -5,7 +5,7 @@
 void Player::update(float deltaTime) {
 	float shipSpeed = 200.0f;
 
-	Cpain::CVec2::vec2 inputDirection{ 0, 0 };
+	Cpain::vec2 inputDirection{ 0, 0 };
 
 	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_S)) inputDirection.y = 1;
 	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) inputDirection.x = 1;

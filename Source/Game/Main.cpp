@@ -42,16 +42,16 @@ int main(int argc, char* argv[]) {
 	
     // Initialize Scene
 
-	Cpain::CScene::Scene scene;
+	Cpain::Scene scene;
 
 	// Additional Initialization
 
     SDL_Event e;
     bool quit = false;
 
-    std::vector<Cpain::CVec2::vec2> stars;
+    std::vector<Cpain::vec2> stars;
     for (int i = 0; i < 100; i++) {
-        stars.push_back(Cpain::CVec2::vec2(Cpain::CRandom::getRandomFloat() * 1280, Cpain::CRandom::getRandomFloat() * 1024));
+        stars.push_back(Cpain::vec2(Cpain::getRandomFloat() * 1280, Cpain::getRandomFloat() * 1024));
     }
 	
 	// Main Loop
@@ -72,12 +72,12 @@ int main(int argc, char* argv[]) {
         if (Cpain::getEngine().getInput().getKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
 
         // Draw
-        Cpain::CVec3::vec3 color{ 0, 0, 0 };
+        Cpain::vec3 color{ 0, 0, 0 };
 
 		Cpain::getEngine().getRenderer().setColor(color.r, color.g, color.b);
         Cpain::getEngine().getRenderer().clear();
 
-		Cpain::CVec2::vec2 starSpeed{ 0, 100 };
+		Cpain::vec2 starSpeed{ 0, 100 };
 		float length = starSpeed.length();
 
         for (auto& star : stars) {

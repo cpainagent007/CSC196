@@ -2,11 +2,11 @@
 
 #include "Framework/Actor.h"
 
-class Player : public Cpain::CActor::Actor {
+class Player : public Cpain::Actor {
 public:
 	Player() = default;
 	Player(const Cpain::Transform& transform, std::shared_ptr<class Cpain::Model> model) :
-		Actor{ transform, model } {}
+		Cpain::Actor{ transform, model } {}
 
 	void update(float deltaTime) override;
 

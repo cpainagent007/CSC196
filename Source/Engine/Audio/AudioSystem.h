@@ -7,26 +7,24 @@
 #include <map>
 
 namespace Cpain {
-	namespace CAudio {
-		class AudioSystem {
-		public:
+	class AudioSystem {
+	public:
 
-			AudioSystem() = default;
+		AudioSystem() = default;
 
-			bool initialize();
-			bool shutdown();
-			void update();
+		bool initialize();
+		bool shutdown();
+		void update();
 
-			bool addSound(const std::string& filename, const std::string& name = "");
-			bool playSound(const std::string& name);
+		bool addSound(const std::string& filename, const std::string& name = "");
+		bool playSound(const std::string& name);
 
-		private:
-			bool checkFmodResult(FMOD_RESULT result);
+	private:
+		bool checkFmodResult(FMOD_RESULT result);
 
-		private:
-			FMOD::System* m_system = nullptr;
-			std::map<std::string, FMOD::Sound*> m_sounds;
+	private:
+		FMOD::System* m_system = nullptr;
+		std::map<std::string, FMOD::Sound*> m_sounds;
 
-		};
-	}
+	};
 }

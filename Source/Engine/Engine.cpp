@@ -10,10 +10,10 @@ namespace Cpain {
 		m_renderer->initialize();
 		m_renderer->createWindow("Cpain Engine", 1280, 1024);
 
-		m_input = std::make_unique<CInput::InputSystem>();
+		m_input = std::make_unique<InputSystem>();
 		m_input->initialize();
 
-		m_audio = std::make_unique<CAudio::AudioSystem>();
+		m_audio = std::make_unique<AudioSystem>();
 		m_audio->initialize();
 
 		return true;
