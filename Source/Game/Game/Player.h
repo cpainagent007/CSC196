@@ -4,6 +4,10 @@
 
 class Player : public Cpain::Actor {
 public:
+	float shipSpeed = 200.0f;
+	float rotationSpeed = 180.0f;
+
+public:
 	Player() = default;
 	Player(const Cpain::Transform& transform, std::shared_ptr<class Cpain::Model> model) :
 		Cpain::Actor{ transform, model } {}

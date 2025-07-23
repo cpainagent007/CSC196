@@ -13,6 +13,8 @@ namespace Cpain {
 
 	protected:
 		std::unique_ptr<class Scene> m_scene;
+		int m_score = 0;
+		int m_lives = 0;
 
 	};	
 }
