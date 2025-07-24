@@ -13,6 +13,8 @@
 #include "Math/Vector3.h"
 #include "Math/Transform.h"
 
+#include "Renderer/Text.h"
+#include "Renderer/Font.h"
 #include "Renderer/Renderer.h"
 #include "Renderer/Model.h"
 
@@ -39,6 +41,13 @@ int main(int argc, char* argv[]) {
     // Add Sounds
 
 	Cpain::getEngine().getAudio().addSound("bass.wav", "bass");
+
+    // Add Font and Text
+
+    Cpain::Font* font = new Cpain::Font();
+    font->load("QuirkyRobot.ttf", 20);
+    Cpain::Text* text = new Cpain::Text(font);
+    text->create(Cpain::getEngine().getRenderer(), "Hello World", Cpain::vec3{ 1, 1, 1 });
 
 	// Additional Initialization
 
@@ -67,6 +76,7 @@ int main(int argc, char* argv[]) {
 		Cpain::getEngine().getRenderer().setColor(color.r, color.g, color.b);
         Cpain::getEngine().getRenderer().clear();
 
+        text->draw(Cpain::getEngine().getRenderer(), 40.0f, 40.0f);
         game->draw();
         
         // Display

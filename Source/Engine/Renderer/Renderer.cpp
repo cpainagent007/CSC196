@@ -11,6 +11,12 @@ namespace Cpain {
             std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
             return false;
         }
+
+        if (!TTF_Init()) {
+            std::cerr << "TTF_Init Error: " << SDL_GetError() << std::endl;
+            return false;
+        }
+
         return true;
     }
 
@@ -101,6 +107,7 @@ namespace Cpain {
     /// Shuts down the renderer and releases associated resources.
     /// </summary>
     void Renderer::shutdown() {
+        TTF_Quit();
         SDL_DestroyRenderer(m_renderer);
         SDL_DestroyWindow(m_window);
         SDL_Quit();
