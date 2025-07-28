@@ -7,7 +7,7 @@ namespace Cpain {
 		Game() = default;
 
 		virtual bool initialize() = 0;
-		virtual void update() = 0;
+		virtual void update(float deltaTime) = 0;
 		virtual void shutdown() = 0;
 		virtual void draw() = 0;
 

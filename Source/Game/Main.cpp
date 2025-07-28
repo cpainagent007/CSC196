@@ -107,7 +107,7 @@ int main(int argc, char* argv[]) {
 		// Update Systems
         
 		Cpain::getEngine().update();
-		game->update();
+		game->update(Cpain::getEngine().getTime().getDeltaTime());
 
         // Update Input
 
