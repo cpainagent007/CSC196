@@ -6,6 +6,8 @@ class Player : public Cpain::Actor {
 public:
 	float shipSpeed = 200.0f;
 	float rotationSpeed = 180.0f;
+	float fireRate = 0.5f;
+	float fireTimer = 0.0f;
 
 public:
 	Player() = default;
@@ -14,6 +16,6 @@ public:
 
 	void update(float deltaTime) override;
 
-private:
+	void onCollision(Actor* collider) override;
 
 };

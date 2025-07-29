@@ -1,15 +1,19 @@
 #pragma once
 
 #include "../Core/StringHelper.h"
+
+#include <list>
 #include <vector>
 #include <memory>
 #include <string>
 
 namespace Cpain {
 	class Actor;
+	class Game;
+
 	class Scene {
 	public:
-		Scene() = default;
+		Scene(Game* game) : m_game{ game } {}
 
 		void update(float deltaTime);
 		void draw(class Renderer& renderer);
@@ -22,8 +26,11 @@ namespace Cpain {
 		template<typename T = Actor>
 		std::vector<T*> getActorByTag(const std::string& tag);
 
+		class Game* getGame() const { return m_game; }
+
 	private:
-		std::vector<std::unique_ptr<class Actor>> m_actors;
+		class Game* m_game = nullptr;
+		std::list<std::unique_ptr<class Actor>> m_actors;
 
 	};
 

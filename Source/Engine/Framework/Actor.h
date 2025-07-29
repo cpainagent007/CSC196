@@ -14,7 +14,10 @@ namespace Cpain {
 		std::string tag;
 
 		vec2 velocity{ 0, 0 };
-		float damping = 0.0f;		
+		float damping = 0.0f;	
+
+		bool active = true;
+		float lifespan = 0.0f;
 
 		Transform transform;
 		Scene* scene = nullptr;
@@ -28,6 +31,10 @@ namespace Cpain {
 		virtual void draw(class Renderer& renderer);
 
 		Transform& getTransform() { return transform; }
+
+		float getRadius();
+
+		virtual void onCollision(Actor* collider) = 0;
 
 	protected:
 		std::shared_ptr<Model> m_model;

@@ -22,4 +22,14 @@ namespace Cpain {
 		draw(renderer, transform.position, transform.rotation, transform.scale);
 	}
 
+	void Model::calculateRadius() {
+		m_radius = 0.0f;
+		for (auto& point : m_points) {
+			float length = point.length();
+			if (length > m_radius) {
+				m_radius = length;
+			}
+		}
+	}
+
 }

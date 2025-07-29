@@ -13,6 +13,6 @@ public:
 
 	void update(float deltaTime) override;
 
-private:
+	void onCollision(Actor* collider) override;
 
 };

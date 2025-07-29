@@ -3,18 +3,20 @@
 #include "Font.h"
 #include "../Math/Vector3.h"
 
+#include <memory>
+
 namespace Cpain {
 	class Text {
 	public:
 		Text() = default;
-		Text(Font* font) : m_font{ font } {}
+		Text(class Font* font) : m_font{ font } {}
 		~Text();
 
-		bool create(Renderer& renderer, const std::string& text, const vec3& color);
-		void draw(Renderer& renderer, float x, float y);
+		bool create(class Renderer& renderer, const std::string& text, const vec3& color);
+		void draw(class Renderer& renderer, float x, float y);
 
 	private:
-		Font* m_font{ nullptr };
+		std::shared_ptr<class Font> m_font = nullptr;
 		SDL_Texture* m_texture{ nullptr };
 	};
 }

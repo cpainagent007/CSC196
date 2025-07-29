@@ -14,7 +14,17 @@
 
 bool SpaceGame::initialize()
 {
-    m_scene = std::make_unique<Cpain::Scene>();
+    m_scene = std::make_unique<Cpain::Scene>(this);
+
+    m_titleFont = std::make_shared<Cpain::Font>();
+    m_titleFont->load("QuirkyRobot.ttf", 100);
+
+	m_uiFont = std::make_shared<Cpain::Font>();
+	m_uiFont->load("QuirkyRobot.ttf", 50);
+
+	m_titleText = std::make_unique<Cpain::Text>(m_titleFont);
+	m_scoreText = std::make_unique<Cpain::Text>(m_uiFont);
+	m_livesText = std::make_unique<Cpain::Text>(m_uiFont);
 
     return true;
 }
@@ -24,7 +34,7 @@ void SpaceGame::update(float deltaTime)
     switch (m_gameState)
     {
     case SpaceGame::GameState::Initialize:
-        m_gameState = GameState::Title;
+        m_gameState = GameState::StartGame;
         break;
 
     case SpaceGame::GameState::Title:
@@ -42,10 +52,10 @@ void SpaceGame::update(float deltaTime)
     case SpaceGame::GameState::StartLevel:
     {
         // create player
-        std::shared_ptr<Cpain::Model> model = std::make_shared<Cpain::Model>(Cpain::playerPoints, Cpain::vec3{ 0.0f, 0.4f, 1.0f });
-        Cpain::Transform transform{ Cpain::vec2{ Cpain::getEngine().getRenderer().getWidth() * 0.5f, Cpain::getEngine().getRenderer().getHeight() * 0.5f }, 0, 5 };
-        std::unique_ptr<Player> player = std::make_unique<Player>(transform, model);
-        player->shipSpeed = 1500.0f;
+        std::shared_ptr<Cpain::Model> model = std::make_shared<Cpain::Model>(Cpain::playerPoints, Cpain::vec3{ 0.0f, 1.0f, 0.0f });
+        Cpain::Transform transform{ Cpain::vec2{ Cpain::getEngine().getRenderer().getWidth() * 0.5f, Cpain::getEngine().getRenderer().getHeight() * 0.5f }, 0, 7 };
+        auto player = std::make_unique<Player>(transform, model);
+        player->shipSpeed = 1000.0f;
         player->rotationSpeed = 180.0f;
         player->damping = 1.5f;
         player->name = "player";
@@ -58,14 +68,14 @@ void SpaceGame::update(float deltaTime)
     case SpaceGame::GameState::Playing:
         m_enemySpawnTimer -= deltaTime;
         if (m_enemySpawnTimer <= 0) {
-            m_enemySpawnTimer = 4;
+            m_enemySpawnTimer = 8;
 
             // create enemies
             std::shared_ptr<Cpain::Model> enemyModel = std::make_shared<Cpain::Model>(Cpain::enemyPoints, Cpain::vec3{ Cpain::getRandomFloat(), Cpain::getRandomFloat(), Cpain::getRandomFloat() });
             Cpain::Transform transform{ Cpain::vec2{ Cpain::getRandomFloat() * Cpain::getEngine().getRenderer().getWidth(), Cpain::getRandomFloat() * Cpain::getEngine().getRenderer().getHeight() }, 0, 10 };
             std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
             enemy->damping = 0.2f;
-            enemy->speed = (Cpain::getRandomFloat() * 800) + 500;
+            enemy->speed = (Cpain::getRandomFloat() * 500) + 500;
             enemy->tag = "enemy";
             m_scene->addActor(std::move(enemy));
         }

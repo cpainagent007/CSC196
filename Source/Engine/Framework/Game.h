@@ -11,6 +11,12 @@ namespace Cpain {
 		virtual void shutdown() = 0;
 		virtual void draw() = 0;
 
+		void addPoints(int points) { m_score += points; }
+		int getPoints() const { return m_score; }
+
+		void setLives(int lives) { m_lives = lives; }
+		int getLives() const { return m_lives; }
+
 	protected:
 		std::unique_ptr<class Scene> m_scene;
 		int m_score = 0;
