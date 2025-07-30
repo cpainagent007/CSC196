@@ -72,11 +72,11 @@ void SpaceGame::update(float deltaTime)
             m_enemySpawnTimer = 8;
 
             // create enemies
-            std::shared_ptr<Cpain::Model> enemyModel = std::make_shared<Cpain::Model>(Cpain::enemyPoints, Cpain::vec3{ Cpain::getRandomFloat(), Cpain::getRandomFloat(), Cpain::getRandomFloat() });
-            Cpain::Transform transform{ Cpain::vec2{ Cpain::getRandomFloat() * Cpain::getEngine().getRenderer().getWidth(), Cpain::getRandomFloat() * Cpain::getEngine().getRenderer().getHeight() }, 0, 10 };
+            std::shared_ptr<Cpain::Model> enemyModel = std::make_shared<Cpain::Model>(Cpain::enemyPoints, Cpain::vec3{ Cpain::getReal(), Cpain::getReal(), Cpain::getReal() });
+            Cpain::Transform transform{ Cpain::vec2{ Cpain::getReal() * Cpain::getEngine().getRenderer().getWidth(), Cpain::getReal() * Cpain::getEngine().getRenderer().getHeight() }, 0, 10 };
             std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
             enemy->damping = 0.2f;
-            enemy->speed = (Cpain::getRandomFloat() * 500) + 500;
+            enemy->speed = (Cpain::getReal() * 500) + 500;
             enemy->tag = "enemy";
             m_scene->addActor(std::move(enemy));
         }
