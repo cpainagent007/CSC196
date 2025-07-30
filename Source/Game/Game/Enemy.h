@@ -4,6 +4,8 @@
 
 class Enemy : public Cpain::Actor {
 public:
+	float fireTimer = 0.0f;
+	float fireRate = 1.0f;
 	float speed = 100.0f;
 public:
 	Enemy() = default;

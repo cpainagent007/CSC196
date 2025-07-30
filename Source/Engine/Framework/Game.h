@@ -9,7 +9,7 @@ namespace Cpain {
 		virtual bool initialize() = 0;
 		virtual void update(float deltaTime) = 0;
 		virtual void shutdown() = 0;
-		virtual void draw() = 0;
+		virtual void draw(class Renderer& renderer) = 0;
 
 		void addPoints(int points) { m_score += points; }
 		int getPoints() const { return m_score; }

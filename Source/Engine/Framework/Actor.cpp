@@ -21,7 +21,7 @@ namespace Cpain {
 	}
 
 	float Actor::getRadius() {
-		return (m_model) ? m_model->getRadius() * transform.scale : 0.0f;
+		return (m_model) ? m_model->getRadius() * (transform.scale * 0.9f) : 0.0f;
 	}
 
 }

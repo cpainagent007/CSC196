@@ -9,7 +9,7 @@ namespace Cpain {
 	class Text {
 	public:
 		Text() = default;
-		Text(class Font* font) : m_font{ font } {}
+		Text(std::shared_ptr<class Font> font) : m_font{ font } {}
 		~Text();
 
 		bool create(class Renderer& renderer, const std::string& text, const vec3& color);

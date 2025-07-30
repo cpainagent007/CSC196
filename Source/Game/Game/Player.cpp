@@ -7,8 +7,18 @@
 #include "Bullet.h"
 #include "Renderer/Model.h"
 #include "Framework/Scene.h"
+#include "SpaceGame.h"
+#include "Renderer/ParticleSystem.h"
+#include "Core/Random.h"
 
 void Player::update(float deltaTime) {
+
+	Cpain::Particle particle;
+	particle.position = transform.position;
+	particle.velocity = Cpain::vec2{ Cpain::getReal() + 0.1f, Cpain::getReal() + 0.1f };
+	particle.color = Cpain::vec3{ 1.0f, 0.7f, 0.0f };
+	particle.lifetime = 2;
+	Cpain::getEngine().getParticleSystem().addParticle(particle);
 
 	float rotate = 0;
 	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_A)) rotate = -1;
@@ -49,5 +59,6 @@ void Player::update(float deltaTime) {
 void Player::onCollision(Actor* collider){
 	if (tag != collider->tag) {
 		active = false;
+		dynamic_cast<SpaceGame*>(scene->getGame())->onPlayerDeath();
 	}
 }
