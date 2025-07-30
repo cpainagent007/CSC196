@@ -4,8 +4,6 @@
 #include "Framework/Scene.h"
 #include "Renderer/Font.h"
 #include "Renderer/Text.h"
-#include "Renderer/Font.h"
-#include "Renderer/Text.h"
 
 class SpaceGame : public Cpain::Game {
 public:
@@ -33,10 +31,10 @@ private:
 	GameState m_gameState = GameState::Initialize;
 	float m_enemySpawnTimer = 0.0f;
 
-	std::shared_ptr<class Cpain::Font*> m_titleFont;
-	std::shared_ptr<class Cpain::Font*> m_uiFont;
+	std::shared_ptr<Cpain::Font> m_titleFont;
+	std::shared_ptr<Cpain::Font> m_uiFont;
 
-	std::unique_ptr<class Cpain::Text*> m_titleText;
-	std::unique_ptr<class Cpain::Text*> m_scoreText;
-	std::unique_ptr<class Cpain::Text*> m_livesText;
+	std::unique_ptr<Cpain::Text> m_titleText;
+	std::unique_ptr<Cpain::Text> m_scoreText;
+	std::unique_ptr<Cpain::Text> m_livesText;
 };

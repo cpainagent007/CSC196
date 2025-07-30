@@ -1,5 +1,6 @@
 #include "Audio/AudioSystem.h"
 
+#include "Core/File.h"
 #include "Core/Random.h"
 #include "Core/Time.h"
 
@@ -28,6 +29,53 @@
 #include <memory>
 
 int main(int argc, char* argv[]) {
+
+    
+     // Get current directory path
+    std::cout << "Directory Operations:\n";
+    std::cout << "Current directory: " << Cpain::getCurrentDirectory() << "\n";
+
+    // Set current directory path (current path + "Assets")
+    std::cout << "Setting directory to 'Assets'...\n";
+    Cpain::setCurrentDirectory("Assets");
+    std::cout << "New directory: " << Cpain::getCurrentDirectory() << "\n\n";
+
+    // Get filenames in the current directory
+    std::cout << "Files in Directory:\n";
+    auto filenames = Cpain::getFilesInDirectory(Cpain::getCurrentDirectory());
+    for (const auto& filename : filenames) {
+        std::cout << filename << "\n";
+    }
+    std::cout << "\n";
+
+    // Get filename (filename.extension) only
+    if (!filenames.empty()) {
+        std::cout << "Path Analysis:\n";
+        std::string filename = Cpain::getFilename(filenames[0]);
+        std::cout << "Filename only: " << filename << "\n";
+
+        // Get extension only
+        std::string ext = Cpain::getExtension(filenames[0]);
+        std::cout << "Extension: " << ext << "\n\n";
+    }
+
+    // Read and display text file
+    std::cout << "Text File Reading:\n";
+    std::string str;
+    bool success = Cpain::readTextFile("test.txt", str);
+    if (success) {
+        std::cout << "Contents of test.txt:\n";
+        std::cout << str << "\n";
+    }
+    else {
+        std::cout << "Failed to read test.txt\n";
+    }
+    
+
+   
+
+
+
 
     // Initialize SDL/Renderer
 

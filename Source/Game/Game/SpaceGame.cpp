@@ -22,9 +22,10 @@ bool SpaceGame::initialize()
 	m_uiFont = std::make_shared<Cpain::Font>();
 	m_uiFont->load("QuirkyRobot.ttf", 50);
 
-	m_titleText = std::make_unique<Cpain::Text>(m_titleFont);
-	m_scoreText = std::make_unique<Cpain::Text>(m_uiFont);
-	m_livesText = std::make_unique<Cpain::Text>(m_uiFont);
+    m_titleText = std::make_unique<Cpain::Text>(m_titleFont.get());
+    m_scoreText = std::make_unique<Cpain::Text>(m_uiFont.get());
+    m_livesText = std::make_unique<Cpain::Text>(m_uiFont.get());
+
 
     return true;
 }
