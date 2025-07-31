@@ -8,6 +8,7 @@ public:
 	float rotationSpeed = 180.0f;
 	float fireRate = 0.5f;
 	float fireTimer = 0.0f;
+	float thrust;
 
 	
 

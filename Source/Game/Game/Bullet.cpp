@@ -23,8 +23,8 @@ void Bullet::update(float deltaTime) {
 	Cpain::Particle particle;
 	particle.position = transform.position;
 	particle.velocity = velocity;
-	particle.color = Cpain::vec3{ Cpain::getReal(0.7f, 0.9f), Cpain::getReal(0.5f, 0.9f), 0.0f};
-	particle.lifetime = 0.5f;
+	particle.color = Cpain::vec3{ 1.0f, Cpain::getReal(0.5f, 0.9f), 0.0f};
+	particle.lifetime = 0.1f;
 	Cpain::getEngine().getParticleSystem().addParticle(particle);
 
 

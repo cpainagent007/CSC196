@@ -16,16 +16,18 @@ void Player::update(float deltaTime) {
 	Cpain::Particle particle;
 	particle.position = transform.position;
 	particle.velocity = Cpain::vec2{ (Cpain::getReal() + 1) * 100, (Cpain::getReal() + 1) * 100 };
-	particle.color = Cpain::vec3{ Cpain::getReal(0.7f, 0.9f), Cpain::getReal(0.5f, 0.9f), 0.0f };
+	particle.color = Cpain::vec3{ 1.0f, Cpain::getReal(0.5f, 0.9f), 0.0f };
 	particle.lifetime = 2;
-	Cpain::getEngine().getParticleSystem().addParticle(particle);
+	if (getMoving()) {
+		Cpain::getEngine().getParticleSystem().addParticle(particle);
+	}
 
 	float rotate = 0;
 	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_A)) rotate = -1;
 	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_D)) rotate = +1;
 	transform.rotation += (rotate * rotationSpeed) * deltaTime;
 
-	float thrust = 0;
+	thrust = 0;
 	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_W)) thrust = +1;
 	if (Cpain::getEngine().getInput().getKeyDown(SDL_SCANCODE_S)) thrust = -1;
 
@@ -61,4 +63,8 @@ void Player::onCollision(Actor* collider){
 		active = false;
 		dynamic_cast<SpaceGame*>(scene->getGame())->onPlayerDeath();
 	}
+}
+
+bool Player::getMoving() {
+	return (thrust > 0);
 }
