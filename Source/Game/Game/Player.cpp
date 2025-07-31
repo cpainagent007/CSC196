@@ -62,6 +62,7 @@ void Player::update(float deltaTime) {
 			bullet->name = "bullet";
 			bullet->tag = "player";
 			break;
+
 		case Weapon::Super:
 			fireRate = superRate;
 			bullet->transform.scale = 50;
@@ -69,7 +70,8 @@ void Player::update(float deltaTime) {
 			bullet->lifespan = 3.0f;
 			bullet->name = "bullet";
 			bullet->tag = "player";
-			
+			break;
+
 		}
 			
 		

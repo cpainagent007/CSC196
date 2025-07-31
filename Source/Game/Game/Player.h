@@ -7,13 +7,14 @@ public:
 	enum class Weapon {
 		Rocket,
 		Rapid,
-		Super
+		Super,
 	};
 
 public:
 	const float rocketRate = 0.5f;
 	const float rapidRate = 0.05f;
 	const float superRate = 2.5f;
+	const float bombRate = 1.0f;
 
 	float shipSpeed = 200.0f;
 	float rotationSpeed = 180.0f;

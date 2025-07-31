@@ -16,7 +16,6 @@ public:
 		PlayerDied,
 		EndGame
 	};
-	
 
 public:
 	SpaceGame() = default;

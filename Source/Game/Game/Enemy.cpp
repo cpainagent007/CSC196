@@ -14,7 +14,6 @@
 
 void Enemy::update(float deltaTime) {
 
-	float speed = 100.0f;
 	bool playerVisible = false;
 	
 	Player* player = scene->getActorByName<Player>("player");
@@ -41,21 +40,32 @@ void Enemy::update(float deltaTime) {
 	transform.position.x = Cpain::wrap(transform.position.x, 0.0f, (float)Cpain::getEngine().getRenderer().getWidth());
 	transform.position.y = Cpain::wrap(transform.position.y, 0.0f, (float)Cpain::getEngine().getRenderer().getHeight());
 
-	fireTimer -= deltaTime;
-	if (fireTimer <= 0 && playerVisible) {
-		fireTimer = fireRate;
+	switch (type) {
+	case Type::Basic:
+		break;
+	case Type::Fast:
+		break;
+	case Type::Shooter:
+		fireTimer -= deltaTime;
+		if (fireTimer <= 0 && playerVisible) {
+			fireTimer = fireRate;
 
-		std::shared_ptr<Cpain::Model> model = std::make_shared<Cpain::Model>(Cpain::bulletPoints, Cpain::vec3{ 1.0f, 0.0f, 0.0f });
-		Cpain::Transform transform{ this->transform.position, this->transform.rotation, 5 };
-		auto bullet = std::make_unique<Bullet>(transform, model);
-		bullet->speed = 3.0f;
-		bullet->lifespan = 1.0f;
-		bullet->name = "bullet";
-		bullet->tag = "enemy";
+			std::shared_ptr<Cpain::Model> model = std::make_shared<Cpain::Model>(Cpain::bulletPoints, Cpain::vec3{ 1.0f, 0.0f, 0.0f });
+			Cpain::Transform transform{ this->transform.position, this->transform.rotation, 5 };
+			auto bullet = std::make_unique<Bullet>(transform, model);
+			bullet->speed = 3.0f;
+			bullet->lifespan = 1.0f;
+			bullet->name = "bullet";
+			bullet->tag = "enemy";
 
-		scene->addActor(std::move(bullet));
+			scene->addActor(std::move(bullet));
 
+		}
+		break;
+	case Type::Mega:
+		break;
 	}
+	
 
 	Actor::update(deltaTime);
 }

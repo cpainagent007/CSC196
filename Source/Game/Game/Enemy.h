@@ -4,6 +4,16 @@
 
 class Enemy : public Cpain::Actor {
 public:
+	enum class Type {
+		Basic,
+		Fast,
+		Shooter,
+		Mega
+	};
+
+	Type type = Type::Basic;
+
+public:
 	float fireTimer = 0.0f;
 	float fireRate = 1.0f;
 	float speed = 100.0f;

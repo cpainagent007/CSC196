@@ -27,7 +27,6 @@ bool SpaceGame::initialize()
     m_scoreText = std::make_unique<Cpain::Text>(m_uiFont);
     m_livesText = std::make_unique<Cpain::Text>(m_uiFont);
 
-
     return true;
 }
 
@@ -107,6 +106,10 @@ void SpaceGame::update(float deltaTime)
         break;
     }
 
+    float speed = 40.0f * deltaTime;
+    float screenHeight = (float)Cpain::getEngine().getRenderer().getHeight();
+    float screenWidth = (float)Cpain::getEngine().getRenderer().getWidth();
+
     m_scene->update(Cpain::getEngine().getTime().getDeltaTime());
 }
 
@@ -149,9 +152,36 @@ void SpaceGame::spawnEnemy() {
         Cpain::Transform transform{ position, Cpain::getReal(0.0f, 360.0f), 10};
 
         std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
-        enemy->damping = 0.2f;
-        enemy->speed = (Cpain::getReal() * 400) + 300;
-        enemy->fireTimer = 5;
+        int choice = Cpain::getInt(0, 3);
+        switch (choice) {
+        case 0:
+            enemy->type = Enemy::Type::Basic;
+            enemy->damping = 0.2f;
+            enemy->speed = (Cpain::getReal() * 400) + 300;
+            enemy->fireTimer = 0;
+            break;
+        case 1:
+            enemy->type = Enemy::Type::Fast;
+            enemy->damping = 0.7f;
+            enemy->speed = (Cpain::getReal() * 800) + 600;
+            enemy->fireTimer = 0;
+            enemy->transform.scale = enemy->transform.scale * 0.5f;
+            break;
+        case 2:
+            enemy->type = Enemy::Type::Shooter;
+            enemy->damping = 0.2f;
+            enemy->speed = (Cpain::getReal() * 400) + 300;
+            enemy->fireTimer = 5;
+            break;
+        case 3:
+            enemy->type = Enemy::Type::Mega;
+            enemy->damping = 0.2f;
+            enemy->speed = 100;
+            enemy->fireTimer = 0;
+            enemy->transform.scale = enemy->transform.scale * 2.0f;
+            break;
+        }
+        
         enemy->tag = "enemy";
         m_scene->addActor(std::move(enemy));
     }
