@@ -64,21 +64,27 @@ void SpaceGame::update(float deltaTime)
         player->damping = 1.5f;
         player->name = "player";
         player->tag = "player";
+        player->weapon = Player::Weapon::Rocket;
 
         m_scene->addActor(std::move(player));
         m_gameState = GameState::Playing;
     }
     break;
-    case SpaceGame::GameState::Playing:
+    case SpaceGame::GameState::Playing: {
         m_enemySpawnTimer -= deltaTime;
         if (m_enemySpawnTimer <= 0) {
             m_enemySpawnTimer = (8 - (m_score * 0.05f));
             if (m_enemySpawnTimer < 1) m_enemySpawnTimer = 1;
             spawnEnemy();
-            
         }
 
+        Player* player = m_scene->getActorByName<Player>("player");
+        if (Cpain::getEngine().getInput().getKeyPressed(SDL_SCANCODE_1)) player->weapon = Player::Weapon::Rocket;
+        if (Cpain::getEngine().getInput().getKeyPressed(SDL_SCANCODE_2)) player->weapon = Player::Weapon::Rapid;
+        if (Cpain::getEngine().getInput().getKeyPressed(SDL_SCANCODE_3)) player->weapon = Player::Weapon::Super;
+
         break;
+    }
     case SpaceGame::GameState::PlayerDied:
 		m_stateTimer -= deltaTime;
         if (m_stateTimer <= 0) {
@@ -150,4 +156,3 @@ void SpaceGame::spawnEnemy() {
         m_scene->addActor(std::move(enemy));
     }
 }
-

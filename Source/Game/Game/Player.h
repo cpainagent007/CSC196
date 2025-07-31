@@ -4,13 +4,24 @@
 
 class Player : public Cpain::Actor {
 public:
+	enum class Weapon {
+		Rocket,
+		Rapid,
+		Super
+	};
+
+public:
+	const float rocketRate = 0.5f;
+	const float rapidRate = 0.05f;
+	const float superRate = 2.5f;
+
 	float shipSpeed = 200.0f;
 	float rotationSpeed = 180.0f;
-	float fireRate = 0.5f;
+	float fireRate = 0.0f;
 	float fireTimer = 0.0f;
 	float thrust;
+	Weapon weapon;
 
-	
 
 public:
 	Player() = default;

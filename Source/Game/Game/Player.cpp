@@ -45,10 +45,34 @@ void Player::update(float deltaTime) {
 		std::shared_ptr<Cpain::Model> model = std::make_shared<Cpain::Model>(Cpain::bulletPoints, Cpain::vec3{ 1.0f, 1.0f, 0.0f });
 		Cpain::Transform transform{ this->transform.position, this->transform.rotation, 5 };
 		auto bullet = std::make_unique<Bullet>(transform, model);
-		bullet->speed = 5.0f;
-		bullet->lifespan = 1.2f;
-		bullet->name = "bullet";
-		bullet->tag = "player";
+
+		switch (weapon) {
+		case Weapon::Rocket:
+			fireRate = rocketRate;
+			bullet->speed = 5.0f;
+			bullet->lifespan = 1.2f;
+			bullet->name = "bullet";
+			bullet->tag = "player";
+			break;
+
+		case Weapon::Rapid:
+			fireRate = rapidRate;
+			bullet->speed = 5.0f;
+			bullet->lifespan = 0.5f;
+			bullet->name = "bullet";
+			bullet->tag = "player";
+			break;
+		case Weapon::Super:
+			fireRate = superRate;
+			bullet->transform.scale = 50;
+			bullet->speed = 0.9f;
+			bullet->lifespan = 3.0f;
+			bullet->name = "bullet";
+			bullet->tag = "player";
+			
+		}
+			
+		
 
 		scene->addActor(std::move(bullet));
 
