@@ -74,6 +74,25 @@ namespace Cpain {
 			return v;
 		}
 
+		static float dot(const Vector2 a, const Vector2 b) {
+			return (a.x * b.x) + (a.y * b.y);
+		}
+
+		static float cross(const Vector2 a, const Vector2 b) {
+			return a.x * b.y - a.y * b.x;
+		}
+
+		static float angleBetween(const Vector2 a, const Vector2 b) {
+			return acosf(dot(a, b));
+		}
+
+		static float signedAngleBetween(const Vector2& a, const Vector2& b) {
+			float dotProd = dot(a, b);
+			float crossProd = cross(a, b);
+			return std::atan2(crossProd, dotProd);
+		}
+
+
 	};
 
 	using ivec2 = Vector2<int>;

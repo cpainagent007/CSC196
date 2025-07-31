@@ -9,6 +9,8 @@ public:
 	float fireRate = 0.5f;
 	float fireTimer = 0.0f;
 
+	
+
 public:
 	Player() = default;
 	Player(const Cpain::Transform& transform, std::shared_ptr<class Cpain::Model> model) :
@@ -17,5 +19,7 @@ public:
 	void update(float deltaTime) override;
 
 	void onCollision(Actor* collider) override;
+
+	bool getMoving();
 
 };

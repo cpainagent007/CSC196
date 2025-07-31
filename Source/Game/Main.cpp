@@ -45,15 +45,6 @@ int main(int argc, char* argv[]) {
 
 	Cpain::getEngine().getAudio().addSound("bass.wav", "bass");
 
-    // Add Font and Text
-    
-
-    auto font = std::make_shared<Cpain::Font>();
-    font->load("QuirkyRobot.ttf", 20);
-    Cpain::Text* text = new Cpain::Text(font);
-    text->create(Cpain::getEngine().getRenderer(), "Hello World", Cpain::vec3{ 1, 1, 1 });
-    
-
 	// Additional Initialization
 
     SDL_Event e;
@@ -81,7 +72,6 @@ int main(int argc, char* argv[]) {
 		Cpain::getEngine().getRenderer().setColor(color.r, color.g, color.b);
         Cpain::getEngine().getRenderer().clear();
 
-        text->draw(Cpain::getEngine().getRenderer(), 40.0f, 40.0f);
         game->draw(Cpain::getEngine().getRenderer());
         
         // Display

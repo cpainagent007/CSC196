@@ -27,6 +27,9 @@ public:
 
 	void onPlayerDeath();
 
+private:
+
+	void spawnEnemy();
 
 private:
 	std::unique_ptr<Cpain::Scene> m_scene;

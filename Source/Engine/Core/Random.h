@@ -1,5 +1,7 @@
 #pragma once
 
+#include "../Math/Vector2.h"
+
 #include <random>
 #include <cstdlib>
 
@@ -51,5 +53,13 @@ namespace Cpain {
         return dist(generator());
     }
 
-	
+    inline vec2 onUnitCircle() {
+        float radians = getReal(twoPi);
+        vec2 v;
+        v.x = cosf(radians);
+        v.y = sinf(radians);
+
+        return { cosf(radians), sinf(radians) };
+    }
+
 }

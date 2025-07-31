@@ -44,6 +44,11 @@ namespace Cpain {
 		return min + result;
 	}
 
+	template<typename T>
+	inline T sign(T value) {
+		return (value < 0) ? (T)-1 : (value > 0) ? (T)1 : 0;
+	}
+
 	using std::min;
 	using std::max;
 	using std::clamp;

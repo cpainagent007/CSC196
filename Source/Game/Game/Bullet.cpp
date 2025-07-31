@@ -3,6 +3,8 @@
 #include "Engine.h"
 #include "Framework/Scene.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/ParticleSystem.h"
+#include "Core/Random.h"
 
 void Bullet::update(float deltaTime) {
 	Cpain::vec2 inputDirection{ 1, 0 };
@@ -13,6 +15,18 @@ void Bullet::update(float deltaTime) {
 
 	transform.position.x = Cpain::wrap(transform.position.x, 0.0f, (float)Cpain::getEngine().getRenderer().getWidth());
 	transform.position.y = Cpain::wrap(transform.position.y, 0.0f, (float)Cpain::getEngine().getRenderer().getHeight());
+
+	float angle = transform.rotation + Cpain::getReal(-20.0f, 20.0f);
+	Cpain::vec2 velocity = Cpain::vec2{ 1, 0 }.rotate(Cpain::degToRad(angle));
+	velocity *= Cpain::getReal(100.0f, 200.0f);
+
+	Cpain::Particle particle;
+	particle.position = transform.position;
+	particle.velocity = velocity;
+	particle.color = Cpain::vec3{ Cpain::getReal(0.7f, 0.9f), Cpain::getReal(0.5f, 0.9f), 0.0f};
+	particle.lifetime = 0.5f;
+	Cpain::getEngine().getParticleSystem().addParticle(particle);
+
 
 	Actor::update(deltaTime);
 }

@@ -19,7 +19,7 @@ namespace Cpain {
 	public:
 		ParticleSystem() = default;
 
-		bool initialize();
+		bool initialize(int poolSize = 1000);
 		void shutdown();
 
 		void update(float deltaTime);

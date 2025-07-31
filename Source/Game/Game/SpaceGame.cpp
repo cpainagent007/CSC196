@@ -72,17 +72,10 @@ void SpaceGame::update(float deltaTime)
     case SpaceGame::GameState::Playing:
         m_enemySpawnTimer -= deltaTime;
         if (m_enemySpawnTimer <= 0) {
-            m_enemySpawnTimer = 8;
-
-            // create enemies
-            std::shared_ptr<Cpain::Model> enemyModel = std::make_shared<Cpain::Model>(Cpain::enemyPoints, Cpain::vec3{ 1.0f - Cpain::getReal(), Cpain::getReal(), Cpain::getReal() });
-            Cpain::Transform transform{ Cpain::vec2{ Cpain::getReal() * Cpain::getEngine().getRenderer().getWidth(), Cpain::getReal() * Cpain::getEngine().getRenderer().getHeight() }, 0, 10 };
-            std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
-            enemy->damping = 0.2f;
-            enemy->speed = (Cpain::getReal() * 200) + 300;
-            enemy->fireTimer = 5;
-            enemy->tag = "enemy";
-            m_scene->addActor(std::move(enemy));
+            m_enemySpawnTimer = (8 - (m_score * 0.05f));
+            if (m_enemySpawnTimer < 1) m_enemySpawnTimer = 1;
+            spawnEnemy();
+            
         }
 
         break;
@@ -125,11 +118,11 @@ void SpaceGame::draw(Cpain::Renderer& renderer) {
     m_scoreText->create(renderer, "Score: " + std::to_string(m_score), Cpain::vec3{ 1, 1, 1 });
     m_scoreText->draw(renderer, 10.0f, 10.0f);
     m_livesText->create(renderer, "Lives: " + std::to_string(m_lives), Cpain::vec3{ 1, 1, 1 });
-    m_livesText->draw(renderer, 10.0f, 20.0f);
+    m_livesText->draw(renderer, 10.0f, 50.0f);
 
     m_scene->draw(renderer);
 
-    //Cpain::getEngine().getParticleSystem().draw(renderer);
+    Cpain::getEngine().getParticleSystem().draw(renderer);
 }
 
 void SpaceGame::onPlayerDeath() {
@@ -137,8 +130,24 @@ void SpaceGame::onPlayerDeath() {
 	m_stateTimer = 2.0f;
 }
 
-void SpaceGame::shutdown()
-{
+void SpaceGame::shutdown() {
     //
+}
+
+void SpaceGame::spawnEnemy() {
+    Player* player = m_scene->getActorByName<Player>("player");
+    if (player) {
+        std::shared_ptr<Cpain::Model> enemyModel = std::make_shared<Cpain::Model>(Cpain::enemyPoints, Cpain::vec3{ 1.0f, Cpain::getReal() * 0.5f, Cpain::getReal() * 0.5f });
+
+        Cpain::vec2 position = player->transform.position + Cpain::onUnitCircle() * Cpain::getReal(500.0f, 700.0f);
+        Cpain::Transform transform{ position, Cpain::getReal(0.0f, 360.0f), 10};
+
+        std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(transform, enemyModel);
+        enemy->damping = 0.2f;
+        enemy->speed = (Cpain::getReal() * 400) + 300;
+        enemy->fireTimer = 5;
+        enemy->tag = "enemy";
+        m_scene->addActor(std::move(enemy));
+    }
 }
 
